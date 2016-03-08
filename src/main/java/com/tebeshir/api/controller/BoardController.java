@@ -18,7 +18,7 @@ import java.util.List;
  * Created by yeko on 31/12/15.
  */
 @RestController
-@RequestMapping(value = "tebeshir/boards")
+@RequestMapping(TebeshirMappings.BOARDS)
 public class BoardController {
 
     @Autowired
