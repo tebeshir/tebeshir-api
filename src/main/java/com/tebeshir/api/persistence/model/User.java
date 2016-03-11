@@ -1,5 +1,6 @@
 package com.tebeshir.api.persistence.model;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -12,15 +13,22 @@ import javax.validation.constraints.Size;
 @Table(name = "AppUser")
 public class User {
 
+    /*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // GenerationType.AUTO : persistence provider should select an
     // appropriate strategy : PostgreSQL?
     private Long id;
+    */
+
+    @Id
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    private String id;
 
     //private Long facebookId;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = true)
     @Size(max = 64)
     private String name;
     // acts as username
@@ -37,8 +45,11 @@ public class User {
     @Email
     private String email;
 
-    @Column(unique = false, nullable = false)
+    @Column(unique = false, nullable = true)
     private String password;
+
+    @Column(unique = true, nullable = true)
+    private String facebookID;
 
     private Long boardID;
 
@@ -48,11 +59,11 @@ public class User {
         return boardID;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -96,8 +107,17 @@ public class User {
         this.password = password;
     }
 
+    public String getFacebookID() {
+        return facebookID;
+    }
+
+    public void setFacebookID(String facebookID) {
+        this.facebookID = facebookID;
+    }
+
     public void setBoardID(Long boardID) {
         this.boardID = boardID;
     }
+
 
 }
